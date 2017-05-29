@@ -27,6 +27,19 @@ spec:
         app: mysql
       annotations:
         pod.alpha.kubernetes.io/initialized: "true"
+        pod.beta.kubernetes.io/init-containers: '[
+            {
+                "name": "mariadb-galera-prepare",
+                "image": "busybox",
+                "command": ["sh", "-c", "chown -R 27:27 /var/lib/mysql"],
+                "volumeMounts": [
+                    {
+                        "name": "datadir",
+                        "mountPath": "/var/lib/mysql"
+                    }
+                ]
+            }
+        ]'
     spec:
       containers:
       - name: mysql
