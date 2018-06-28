@@ -25,7 +25,11 @@ else
 	/usr/bin/peer-finder -on-start="${CONTAINER_SCRIPTS_DIR}/configure-galera.sh" -service=${K8S_SVC_NAME}
 fi
 
-
+echo "Should run mysql config"
+if [ -d "/var/lib/mysql/mysql" ]; then
+	echo "directory already exists."
+	echo "WHY"
+fi
 # We assume that mysql needs to be setup if this directory is not present
 if [ ! -d "/var/lib/mysql/mysql" ]; then
 	echo "Configure first time mysql"
